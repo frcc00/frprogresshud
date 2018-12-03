@@ -1,4 +1,11 @@
 #import "FrprogresshudPlugin.h"
+#import "MBProgressHUD.h"
+
+@interface FrprogresshudPlugin(){
+    MBProgressHUD *hud;
+}
+
+@end
 
 @implementation FrprogresshudPlugin
 + (void)registerWithRegistrar:(NSObject<FlutterPluginRegistrar>*)registrar {
@@ -10,11 +17,19 @@
 }
 
 - (void)handleMethodCall:(FlutterMethodCall*)call result:(FlutterResult)result {
-  if ([@"getPlatformVersion" isEqualToString:call.method]) {
-    result([@"iOS " stringByAppendingString:[[UIDevice currentDevice] systemVersion]]);
-  } else {
-    result(FlutterMethodNotImplemented);
+  if ([@"show" isEqualToString:call.method]) {
+      if (hud != nil) {
+          [hud hideAnimated:YES];
+      }
+      hud = [MBProgressHUD showHUDAddedTo:[UIApplication sharedApplication].keyWindow animated:YES];
+    result(nil);
   }
+    if ([@"dismiss" isEqualToString:call.method]) {
+        if (hud != nil) {
+            [hud hideAnimated:YES];
+        }
+        result(nil);
+    }
 }
 
 @end
