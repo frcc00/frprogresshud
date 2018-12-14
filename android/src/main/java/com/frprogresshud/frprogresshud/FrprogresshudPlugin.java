@@ -37,6 +37,7 @@ public class FrprogresshudPlugin implements MethodCallHandler {
 //              .setCancellable(true)
               .setAnimationSpeed(2)
               .setDimAmount(0.5f)
+                .setCancellable(true)
               .show();
       result.success(null);
     }
